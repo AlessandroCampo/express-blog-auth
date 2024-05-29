@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { generateID } = require('../utils');
+require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET;
 
 
@@ -9,7 +10,7 @@ const generateToken = (user) => {
     return jwt.sign(payload, jwtSecret, { expiresIn: "1d" });
 }
 
-module.exports = (req, res, next) => {
+const auth = (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {
         return res.status(401).json('You need to be logged in to perform this action');
@@ -23,4 +24,8 @@ module.exports = (req, res, next) => {
     })
     req.user = user;
     next()
+}
+
+module.exports = {
+    auth, generateToken
 }

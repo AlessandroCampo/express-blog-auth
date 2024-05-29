@@ -7,6 +7,8 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 const postRouter = require('./routers/postRouter.js');
 const utils = require('./utils.js');
+const checkCredentials = require('./middlewares/checkCredentials.js');
+const { generateToken } = require('./middlewares/auth.js');
 
 
 
@@ -15,9 +17,9 @@ app.get('/', (req, res) => {
     res.send(htmlContent);
 });
 
-app.get('/login', (req, res) => {
-    const htmlContent = utils.readFile('index', 'html');
-    res.send(htmlContent);
+app.get('/login', express.urlencoded({ extended: true }), checkCredentials, (req, res) => {
+    const token = generateToken(req.user);
+    res.send(token);
 });
 
 app.use('/posts', postRouter)

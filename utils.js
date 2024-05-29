@@ -1,12 +1,12 @@
 const path = require('path');
 const fs = require('fs');
-let posts = require('./postsDb.json')
+let posts = require('./db/postsDb.json')
 const uniquid = require('uniqid');
 
 
 const readFile = (fileName, extension) => {
     const namePlusExtension = fileName + '.' + extension
-    const filePath = extension == 'html' ? path.join(__dirname, 'views', namePlusExtension) : path.join(__dirname, namePlusExtension);
+    const filePath = extension == 'html' ? path.join(__dirname, 'views', namePlusExtension) : path.join(__dirname, '/db/', namePlusExtension);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     if (extension == 'json') return JSON.parse(fileContent);
     return fileContent
@@ -30,7 +30,7 @@ const deletePublicFile = function (fileName) {
 
 const createSlug = (title) => {
     //check //
-    let currentPosts = JSON.parse(fs.readFileSync(__dirname + '/postsDb.json'))
+    let currentPosts = JSON.parse(fs.readFileSync(__dirname + '/db/postsDb.json'))
     const postSlugs = currentPosts.map(p => p.slug);
     let baseSlug = title ? title.replaceAll(' ', '-').toLowerCase() : 'no-title-post';
     let uniqueSlug = baseSlug;

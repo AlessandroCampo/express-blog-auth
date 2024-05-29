@@ -10,7 +10,8 @@ const postCreation = require('../middlewares/postCreation.js');
 const postErrorHandler = require('../middlewares/postErrorHandler.js');
 const upload = multer({ storage });
 
-router.use(auth);
+// router.use(auth);
+router.use(express.urlencoded({ extended: true }));
 
 
 router.get('/', postController.index)

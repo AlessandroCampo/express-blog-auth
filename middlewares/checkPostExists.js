@@ -1,11 +1,11 @@
 
-const posts = require('../postsDb.json');
+const posts = require('../db/postsDb.json');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = (req, res, next) => {
     const slug = req.params.slug;
-    const dbPath = path.resolve(__dirname, '../postsDb.json');
+    const dbPath = path.resolve(__dirname, '../db/postsDb.json');
     const currentPosts = JSON.parse(fs.readFileSync(dbPath));
     const postExists = currentPosts.some(p => slug === p.slug);
 

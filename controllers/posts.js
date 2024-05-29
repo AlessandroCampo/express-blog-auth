@@ -2,7 +2,7 @@ const utils = require('../utils.js');
 const dbFileName = 'postsDb';
 const path = require('path');
 const fs = require('fs');
-let posts = require('../postsDb.json');
+let posts = require('../db/postsDb.json');
 
 const index = (req, res) => {
     res.format({
@@ -56,7 +56,7 @@ const create = (req, res) => {
 
 const show = (req, res) => {
     const slug = req.params.slug;
-    const dbPath = path.resolve(__dirname, '../postsDb.json');
+    const dbPath = path.resolve(__dirname, '../db/postsDb.json');
     const currentPosts = JSON.parse(fs.readFileSync(dbPath));
     res.format({
         "html": () => {

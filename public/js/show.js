@@ -15,6 +15,7 @@ const deletePost = async (slug) => {
         }
     } catch (err) {
         console.error('Error:', err)
+        window.alert(err.response.data.error)
     }
 };
 

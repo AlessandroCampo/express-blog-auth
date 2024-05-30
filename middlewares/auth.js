@@ -19,10 +19,12 @@ const auth = (req, res, next) => {
     const token = authorization.split(" ")[1];
     jwt.verify(token, jwtSecret, (err, payload) => {
         if (err) {
-            return res.status(403).json(err);
+            return res.status(403).json({ err, message: err.message.replace('jwt', 'token') });
         }
+        console.log(payload)
+        req.user = payload;
     })
-    req.user = user;
+
     next()
 }
 

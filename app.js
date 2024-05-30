@@ -25,8 +25,10 @@ app.get('/login', express.urlencoded({ extended: true }), checkCredentials, (req
 app.use('/posts', postRouter)
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send(`An error has occurred: ${err.message}`);
+    res.status(err.status).json({
+        error: err.message,
+        status: err.status
+    });
 });
 
 app.listen(port, () => {

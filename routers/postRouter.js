@@ -8,16 +8,17 @@ const checkPostExists = require('../middlewares/checkPostExists.js');
 const { auth } = require('../middlewares/auth.js');
 const postCreation = require('../middlewares/postCreation.js');
 const postErrorHandler = require('../middlewares/postErrorHandler.js');
+const admin = require('../middlewares/admin.js');
 const upload = multer({ storage });
 
-// router.use(auth);
+router.use(auth);
 router.use(express.urlencoded({ extended: true }));
 
 
 router.get('/', postController.index)
     .post('/create', upload.single('image'), postCreation, postController.create, postErrorHandler)
     .get('/:slug', checkPostExists, postController.show)
-    .delete('/:slug', checkPostExists, postController.destroy)
+    .delete('/:slug', checkPostExists, admin, postController.destroy)
     .get('/:slug/download', checkPostExists, postController.download)
     .post('/:slug/comment', checkPostExists, postController.comment)
 

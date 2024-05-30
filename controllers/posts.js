@@ -99,11 +99,10 @@ const comment = (req, res) => {
 }
 
 const destroy = (req, res) => {
-    const data = req.body;
     const slug = req.params.slug;
     const existingPosts = utils.readFile(dbFileName, 'json')
-    const selectedPost = existingPosts.find(p => slug === p.slug);
     const newData = existingPosts.filter(p => p.slug !== slug);
+    console.log(newData)
     const stringifiedData = JSON.stringify(newData);
     utils.writeInFile(dbFileName, 'json', stringifiedData);
     return res.status(200).json({ success: true, message: 'post succesfully deleted' });

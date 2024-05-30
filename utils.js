@@ -17,7 +17,7 @@ const getPath = (fileName) => {
 }
 
 const writeInFile = function (fileName, extension, data) {
-    const filePath = path.join(__dirname, fileName + '.' + extension);
+    const filePath = path.join(__dirname, '/db', fileName + '.' + extension);
     fs.writeFileSync(filePath, data);
 };
 

@@ -4,7 +4,7 @@
         "username": "john_doe",
         "password": "password123",
         "email": "john.doe@example.com",
-        "admin": false
+        "admin": true
     },
     {
         "id": 2,
